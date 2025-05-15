@@ -1,81 +1,100 @@
 import React, { useState, useEffect } from 'react';
 import CountryCard from '../Components/CountryCard';
 import SearchBar from '../Components/SearchBar';  
-import RegionSelector from '../Components/RegionSelector';  
+import RegionSelector from '../Components/RegionSelector';
+import { useSearchParams } from 'react-router-dom';
 
 function AllCountries() {
     const [countries, setCountries] = useState([]);  // State for storing countries data
-    const [searchQuery, setSearchQuery] = useState('');  // State for storing search query
-    const [selectedRegion, setSelectedRegion] = useState('');  // State for storing selected region
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
+    const selectedRegion = searchParams.get('region') || '';
+    
   
     // Fetch all countries data on component mount
     useEffect(() => {
-      fetch('https://restcountries.com/v3.1/all')  // Fetch all countries data
-        .then((response) => response.json())  // Parse the JSON response
+      fetch('https://restcountries.com/v3.1/all')  
+        .then((response) => response.json())  
         .then((data) => {
-          setCountries(data);  // Set all countries data to state
+          setCountries(data);  
         })
         .catch((err) => console.error('Error fetching countries:', err));
-    }, []);  // Empty dependency array ensures this runs only once when the component mounts
+    }, []);  
 
-    // Handle the search input change
     const handleSearchChange = (e) => {
-        const query = e.target.value;
-        setSearchQuery(query);  // Update the search query as the user types
-
-        if (query.trim() !== '') {
-        // Fetch country data based on search query using GET /name/{name}
-        fetch(`https://restcountries.com/v3.1/name/${query}`)
-            .then((response) => response.json())
-            .then((data) => {
-            setCountries(data);  // Set the filtered country data based on search query
-            })
-            .catch((err) => console.error('Error fetching searched country:', err));
+      const query = e.target.value;
+      // Update URL query param 'search'
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        if (query) {
+          newParams.set('search', query);
         } else {
-        // If search query is empty, show countries based on selected region or all countries
+          newParams.delete('search');
+        }
         if (selectedRegion) {
-            // Fetch countries from the selected region using GET /region/{region}
-            fetch(`https://restcountries.com/v3.1/region/${selectedRegion}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setCountries(data);  // Set countries from the selected region
-            })
-            .catch((err) => console.error('Error fetching countries by region:', err));
-        } else {
-            // If no region is selected, show all countries again
-            fetch('https://restcountries.com/v3.1/all')
-            .then((response) => response.json())
-            .then((data) => {
-                setCountries(data);  // Set all countries data to state
-            })
-            .catch((err) => console.error('Error fetching all countries:', err));
+          newParams.set('region', selectedRegion);
         }
-        }
+        return newParams;
+      });
     };
-
-    // Handle region selection
+    
     const handleRegionChange = (e) => {
-        const region = e.target.value;
-        setSelectedRegion(region);  // Update the selected region
-
+      const region = e.target.value;
+      // Update URL query param 'region'
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
         if (region) {
-        // Fetch countries for the selected region using GET /region/{region}
-        fetch(`https://restcountries.com/v3.1/region/${region}`)
-            .then((response) => response.json())
-            .then((data) => {
-            setCountries(data);  // Set countries from the selected region
-            })
-            .catch((err) => console.error('Error fetching countries by region:', err));
+          newParams.set('region', region);
         } else {
-        // If no region is selected, show all countries again
-        fetch('https://restcountries.com/v3.1/all')
-            .then((response) => response.json())
-            .then((data) => {
-            setCountries(data);  // Reset to all countries
-            })
-            .catch((err) => console.error('Error fetching all countries:', err));
+          newParams.delete('region');
         }
-    };
+        if (searchQuery) {
+          newParams.set('search', searchQuery);
+        }
+        return newParams;
+      });
+    }; 
+    
+    useEffect(() => {
+      let url = 'https://restcountries.com/v3.1/all'; // Default URL to fetch all countries
+    
+      // If both region and search query are present
+      if (searchQuery.trim() !== '' && selectedRegion) {
+        url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      } else if (searchQuery.trim() !== '') {
+        // If only search query is present
+        url = `https://restcountries.com/v3.1/name/${searchQuery}`;
+      } else if (selectedRegion) {
+        // If only region is selected
+        url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      }
+    
+      // Fetch data from the appropriate URL
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.length > 0) {
+            if (searchQuery.trim() !== '' && selectedRegion) {
+              // Filter countries by both region and search query
+              const filteredCountries = data.filter((country) =>
+                country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+              );
+              setCountries(filteredCountries);
+            } else {
+              setCountries(data); // Set the countries data
+            }
+          } else {
+            setCountries([]); // No results found, show empty state
+          }
+        })
+        .catch(() => {
+          setCountries([]); // In case of an error, set empty array
+        });
+    }, [searchQuery, selectedRegion]);
+    
+    
+    
 
     return (
       <div className="container mx-auto p-4" >
@@ -98,7 +117,7 @@ function AllCountries() {
             <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
           </div>
           <div style={{ minWidth: '200px' }}>
-            <RegionSelector selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} />
+          <RegionSelector selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} />
           </div>
         </div>
       </div>
