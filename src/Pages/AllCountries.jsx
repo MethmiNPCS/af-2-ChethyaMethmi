@@ -78,25 +78,38 @@ function AllCountries() {
     };
 
     return (
-      <div className="container mx-auto p-4">
-        <div>
-          <br /><br /><br />
-          {/* Use SearchBar Component */}
-          <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
-      
-          {/* Use RegionSelector Component */}
-          <RegionSelector selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} />
+      <div className="container mx-auto p-4" >
+        <div
+          className="sticky-top d-flex align-items-center gap-3 px-4"
+          style={{
+            top: '80px',                 // below navbar height
+            width: '100vw',              // full viewport width
+            backgroundColor: 'rgba(255, 255, 255, 0.7)', // semi-transparent white
+            backdropFilter: 'blur(10px)', // optional blur for glass effect
+            zIndex: 1050,
+            paddingTop: '0.75rem',
+            paddingBottom: '0.75rem',
+            position: 'sticky',          // sticky (can omit if sticky-top works)
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // subtle shadow
+          }}
+        >
+        <div className="container d-flex flex-column flex-md-row align-items-center gap-3 px-0">
+          <div className="flex-grow-1">
+            <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+          </div>
+          <div style={{ minWidth: '200px' }}>
+            <RegionSelector selectedRegion={selectedRegion} handleRegionChange={handleRegionChange} />
+          </div>
         </div>
+      </div>
          
-        <div className="row g-4">
+        <div className="row g-4" style={{ paddingTop: '100px' }}>
           {countries.map((country) => (
             <div key={country.cca3} className="col-12 col-sm-6 col-lg-4">
               <CountryCard country={country} />
             </div>
           ))}
         </div>
-
-
       </div>
       );
 }

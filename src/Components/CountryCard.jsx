@@ -35,10 +35,12 @@ function CountryCard({ country }) {
           <strong>Languages:</strong> {languages ? Object.values(languages).join(', ') : 'N/A'}
         </Card.Text>
 
+        <div>
         {/* Example Action Button */}
-        <Link to={`/country/${country.cca3}`}>
-          <Button className="btn btn-outline-info">Details</Button>
-        </Link>
+          <Link to={`/country/${country.cca3}`}>
+            <Button className="btn btn-outline-info">Details</Button>
+          </Link>
+        </div>
       </Card.Body>
     </Card>
   );
