@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 function NavBar() {
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark rounded fixed-top px-4"
+      className="navbar navbar-expand-lg navbar-dark fixed-top px-4"
       style={{
         height: '80px',                    // Increased height
         backgroundColor: 'rgba(46, 59, 78, 0.75)',  // Transparent dark with 75% opacity
