@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import icon from '../assets/icon.png';
 
 function NavBar() {
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark fixed-top px-4"
       style={{
-        height: '80px',                    // Increased height
-        backgroundColor: 'rgba(46, 59, 78, 0.75)',  // Transparent dark with 75% opacity
-        backdropFilter: 'blur(8px)',      // Blur behind navbar for nice glass effect
-        WebkitBackdropFilter: 'blur(8px)', // Safari support
-        zIndex: 1030                      // Bootstrap default for navbar fixed-top
+        height: '80px',                    
+        backgroundColor: 'rgba(46, 59, 78, 0.75)',  
+        backdropFilter: 'blur(8px)',      
+        WebkitBackdropFilter: 'blur(8px)', 
+        zIndex: 1030                     
       }}
     >
       <div className="container-fluid h-100 d-flex align-items-center">
         {/* Brand */}
-        <Link className="navbar-brand fs-4" to="/">
-          HelloCountries
+        <Link className="navbar-brand fs-4" to="/"> 
+        <img src={icon} alt="HelloCountries Icon" style={{ width: '30px', height: '30px', marginRight: '10px' }} /> 
+        HelloCountries
         </Link>
 
         {/* Mobile toggler */}
@@ -41,7 +43,7 @@ function NavBar() {
                 className="nav-link px-3"
                 activeClassName="active"
               >
-                All Countries
+                🌎 All Countries
               </NavLink>
             </li>
 
@@ -51,7 +53,7 @@ function NavBar() {
                 className="nav-link px-3"
                 activeClassName="active"
               >
-                Favorites
+                ❤ Favorites
               </NavLink>
             </li>
           </ul>

@@ -15,6 +15,7 @@ function LanguageSelector({ selectedLanguage, handleLanguageChange }) {
   return (
     <select
       className="form-select"
+      data-testid="language-select"
       value={selectedLanguage}
       onChange={handleLanguageChange}
       style={{ minHeight: '40px' }}

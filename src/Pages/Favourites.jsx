@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CountryCard from '../Components/CountryCard';
-import FilterBar from '../Components/FilterBar'; // Import FilterBar
-
+import FilterBar from '../Components/FilterBar'; 
 function Favorites() {
   const [favoriteCountries, setFavoriteCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
