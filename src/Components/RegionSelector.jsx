@@ -3,6 +3,7 @@ import React from 'react';
 function RegionSelector({ selectedRegion, handleRegionChange }) {
   return (
     <select
+      data-testid="region-select"
       className="form-select"
       value={selectedRegion}
       onChange={handleRegionChange}
