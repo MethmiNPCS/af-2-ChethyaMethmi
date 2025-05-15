@@ -37,7 +37,7 @@ function NavBar() {
           <ul className="navbar-nav ms-auto align-items-center h-100">
             <li className="nav-item mx-2">
               <NavLink
-                to="/home"
+                to="/AllCountries"
                 className="nav-link px-3"
                 activeClassName="active"
               >

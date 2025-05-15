@@ -3,7 +3,7 @@ import CountryCard from '../Components/CountryCard';
 import SearchBar from '../Components/SearchBar';  
 import RegionSelector from '../Components/RegionSelector';  
 
-function Home() {
+function AllCountries() {
     const [countries, setCountries] = useState([]);  // State for storing countries data
     const [searchQuery, setSearchQuery] = useState('');  // State for storing search query
     const [selectedRegion, setSelectedRegion] = useState('');  // State for storing selected region
@@ -101,4 +101,4 @@ function Home() {
       );
 }
 
-export default Home
+export default AllCountries
