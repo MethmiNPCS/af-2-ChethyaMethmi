@@ -3,6 +3,7 @@ import NavBar from './Components/NavBar';
 import Welcome from './Pages/Welcome';
 import AllCountries    from './Pages/AllCountries';
 import CountryDetails from './Pages/CountryDetails';
+import Favorites from './Pages/Favourites';  
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/AllCountries" element={<AllCountries />} />
+        <Route path="/allcountries" element={<AllCountries />} />
         <Route path="/country/:code" element={<CountryDetails />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </BrowserRouter>
   );
