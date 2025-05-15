@@ -26,8 +26,8 @@ function Welcome() {
         all in one place.
       </p>
 
-      <Link to="/allcountries" className="btn btn-dark btn-lg">
-        Get Started
+      <Link to="/login" className="btn btn-dark btn-lg">
+        Login
       </Link>
     </div>
   );

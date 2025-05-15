@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import icon from '../assets/icon.png';
+import { useAuth } from '../contexts/AuthContext'; // Import your AuthContext hook
 
 function NavBar() {
+  const { currentUser } = useAuth(); // Get current logged-in user
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark fixed-top px-4"
@@ -17,8 +20,12 @@ function NavBar() {
       <div className="container-fluid h-100 d-flex align-items-center">
         {/* Brand */}
         <Link className="navbar-brand fs-4" to="/"> 
-        <img src={icon} alt="HelloCountries Icon" style={{ width: '30px', height: '30px', marginRight: '10px' }} /> 
-        HelloCountries
+          <img
+            src={icon}
+            alt="HelloCountries Icon"
+            style={{ width: '30px', height: '30px', marginRight: '10px' }}
+          /> 
+          HelloCountries
         </Link>
 
         {/* Mobile toggler */}
@@ -56,6 +63,15 @@ function NavBar() {
                 ❤ Favorites
               </NavLink>
             </li>
+
+            {/* Show logged in user email or name if logged in */}
+            {currentUser && (
+              <li className="nav-item mx-2 d-flex align-items-center">
+                <span className="text-white">
+                  🧑 {currentUser.email ? currentUser.email.split('@')[0] : currentUser.displayName}
+                </span>
+              </li>
+            )}
           </ul>
         </div>
       </div>
