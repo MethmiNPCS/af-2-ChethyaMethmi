@@ -6,7 +6,7 @@ import CountryDetails from './Pages/CountryDetails';
 import Favorites from './Pages/Favourites'; 
 import Login from './Pages/Login';
 import ProtectedRoute from './Components/ProtectedRoute';
-import SignUp from './Pages/SignUp';
+import Register from './Pages/Register';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/allcountries" element={<AllCountries />} />
         <Route path="/country/:code" element={<CountryDetails />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Register />} />
         <Route
         path="/favorites"
         element={
