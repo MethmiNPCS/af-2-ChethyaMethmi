@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
-export default function SignUp() {
+export default function Register() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -98,3 +98,4 @@ export default function SignUp() {
     </div>
   );
 }
+
