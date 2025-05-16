@@ -52,7 +52,7 @@ function CountryCard({ country }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <Link to={`/country/${cca3}`}>
-            <Button className="btn btn-outline-info">Details</Button>
+            <Button className="btn btn-outline-primary" style={{color:'white'}}>Details</Button>
           </Link>
 
           <Button
