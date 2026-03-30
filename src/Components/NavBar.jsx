@@ -18,25 +18,20 @@ function NavBar() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark fixed-top px-4"
-      style={{
-        height: '80px',
-        backgroundColor: 'rgba(46, 59, 78, 0.75)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        zIndex: 1030,
-      }}
+      className="navbar navbar-expand-lg navbar-dark fixed-top px-4 modern-navbar"
     >
       <div className="container-fluid h-100 d-flex align-items-center">
       {/* Brand */}
-      <Link className="navbar-brand fs-4" to="/">
-        <img
-          src={icon}
-          alt="HelloCountries Icon"
-          style={{ width: '30px', height: '30px', marginRight: '10px' }}
-        />
-        <span style={{ fontWeight: 'bold', fontStyle: 'italic', color: 'white' }}>HelloCountries</span>
-      </Link>
+        <Link className="navbar-brand fs-4 d-flex align-items-center" to="/">
+          <span className="brand-orb">
+            <img
+              src={icon}
+              alt="HelloCountries Icon"
+              className="brand-icon"
+            />
+          </span>
+          <span className="brand-title">HelloCountries</span>
+        </Link>
       
         {/* Mobile toggler */}
         <button
@@ -53,38 +48,42 @@ function NavBar() {
 
         {/* Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto align-items-center h-100">
+          <ul className="navbar-nav ms-auto align-items-center h-100 gap-2">
             <li className="nav-item mx-2">
               <NavLink
                 to="/allcountries"
-                className={({ isActive }) => `nav-link px-3${isActive ? ' active' : ''}`}
+                className={({ isActive }) => `nav-link px-3 modern-link${isActive ? ' active' : ''}`}
               >
-                🌎 All Countries
+                <span className="link-icon">🌎</span>
+                All Countries
               </NavLink>
             </li>
 
             <li className="nav-item mx-2">
               <NavLink
                 to="/favorites"
-                className={({ isActive }) => `nav-link px-3${isActive ? ' active' : ''}`}
+                className={({ isActive }) => `nav-link px-3 modern-link${isActive ? ' active' : ''}`}
               >
-                ❤ Favorites
+                <span className="link-icon">❤</span>
+                Favorites
               </NavLink>
             </li>
 
             {/* Show logged in user email or name if logged in */}
             {currentUser && (
               <li className="nav-item mx-2 d-flex align-items-center">
-                <span
-                  className="text-white cursor-pointer"
+                <button
+                  type="button"
+                  className="btn btn-link nav-user-chip"
                   onClick={toggleDropdown}
                 >
-                  🧑 {currentUser.email ? currentUser.email.split('@')[0] : currentUser.displayName}
-                </span>
+                  <span className="link-icon">🧑</span>
+                  {currentUser.email ? currentUser.email.split('@')[0] : currentUser.displayName}
+                </button>
 
                 {/* Dropdown Menu for Logout */}
                 {showDropdown && (
-                  <ul className="dropdown-menu show" style={{ position: 'absolute', top: '60px', right: '10px' }}>
+                  <ul className="dropdown-menu show modern-dropdown">
                     <li>
                       <button className="dropdown-item" onClick={handleLogout}>
                         Logout

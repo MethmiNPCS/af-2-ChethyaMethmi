@@ -1,10 +1,11 @@
 import React from 'react';
+import '../Styles/FilterControls.css';
 
 function RegionSelector({ selectedRegion, handleRegionChange }) {
   return (
     <select
       data-testid="region-select"
-      className="form-select"
+      className="form-select filter-control filter-select"
       value={selectedRegion}
       onChange={handleRegionChange}
       style={{ minHeight: '40px' }}
