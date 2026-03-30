@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import "../Styles/AuthPages.css";
 
 export default function Register() {
   const emailRef = useRef();
@@ -31,34 +32,35 @@ export default function Register() {
   }
 
   return (
-    <div
-      className="container d-flex flex-column justify-content-center align-items-center"
-      style={{ maxWidth: 400, minHeight: "80vh", marginTop: "5rem" }}
-    >
-      <div className="card shadow-lg p-4 w-100 rounded-4">
-        <h2 className="mb-4 text-center fw-bold">Sign Up</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-header">
+          <span className="auth-pill">Create your account</span>
+          <h2>Start your journey</h2>
+          <p>Save favorites, build your wishlist, and explore the world.</p>
+        </div>
 
         {error && <div className="alert alert-danger">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-floating auth-field">
             <input
               type="email"
               placeholder="Email"
               ref={emailRef}
-              className="form-control rounded-3"
+              className="form-control"
               id="floatingEmail"
               required
             />
             <label htmlFor="floatingEmail">Email address</label>
           </div>
 
-          <div className="form-floating mb-3">
+          <div className="form-floating auth-field">
             <input
               type="password"
               placeholder="Password"
               ref={passwordRef}
-              className="form-control rounded-3"
+              className="form-control"
               id="floatingPassword"
               required
               minLength={6}
@@ -66,12 +68,12 @@ export default function Register() {
             <label htmlFor="floatingPassword">Password</label>
           </div>
 
-          <div className="form-floating mb-4">
+          <div className="form-floating auth-field">
             <input
               type="password"
               placeholder="Confirm Password"
               ref={passwordConfirmRef}
-              className="form-control rounded-3"
+              className="form-control"
               id="floatingConfirmPassword"
               required
               minLength={6}
@@ -79,20 +81,14 @@ export default function Register() {
             <label htmlFor="floatingConfirmPassword">Confirm Password</label>
           </div>
 
-          <button
-            disabled={loading}
-            className="btn btn-primary w-100 py-2 fw-semibold fs-5 rounded-3"
-            type="submit"
-          >
+          <button disabled={loading} className="auth-button" type="submit">
             {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
 
-        <div className="text-center mt-4">
-          Already have an account?{" "}
-          <Link to="/login" className="text-decoration-none fw-semibold">
-            Log In
-          </Link>
+        <div className="auth-footer">
+          <span>Already have an account?</span>
+          <Link to="/login">Log In</Link>
         </div>
       </div>
     </div>

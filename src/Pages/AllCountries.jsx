@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import FilterBar from '../Components/FilterBar'; // Import the new FilterBar component
 import CountryCard from '../Components/CountryCard';
 import { useSearchParams } from 'react-router-dom';
+import '../Styles/AllCountries.css';
 
 function AllCountries() {
   const [countries, setCountries] = useState([]); // State for storing countries data
@@ -103,27 +104,25 @@ function AllCountries() {
   }, [searchQuery, selectedRegion, language]);
 
   return (
-    <div className="container mx-auto p-4">
-      <div>
-        <FilterBar
-          searchQuery={searchQuery}
-          handleSearchChange={handleSearchChange}
-          language={language}
-          handleLanguageChange={handleLanguageChange}
-          selectedRegion={selectedRegion}
-          handleRegionChange={handleRegionChange}
-        />
-      </div>
+    <div className="all-countries-page">
+      <FilterBar
+        searchQuery={searchQuery}
+        handleSearchChange={handleSearchChange}
+        language={language}
+        handleLanguageChange={handleLanguageChange}
+        selectedRegion={selectedRegion}
+        handleRegionChange={handleRegionChange}
+      />
 
       {errorMessage && countries.length === 0 && (
-        <div className="alert alert-warning mt-3" role="alert">
+        <div className="alert alert-warning mt-3 all-countries-alert" role="alert">
           {errorMessage}
         </div>
       )}
 
-      <div className="row g-4" style={{ paddingTop: '180px' }}>
+      <div className="all-countries-grid">
         {countries.map((country) => (
-          <div key={country.cca3} className="col-12 col-sm-6 col-lg-4">
+          <div key={country.cca3} className="all-countries-cell">
             <CountryCard country={country} />
           </div>
         ))}
