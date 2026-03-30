@@ -81,11 +81,9 @@ The application fulfills the following functional requirements:
 - **Save to Favorites**: Click the heart icon on a country card to save it as a favorite. These favorites are stored locally.
 - **Log out**: Click on the username in the navbar to reveal the logout option.
 
-####################################################
 ## **Deployment 🌐**
 The application is deployed on **Render** (or your chosen platform). Visit the link below to see the live version:
-- **Live URL**: [Insert your deployment URL here]
-#####################################################
+- **Live URL**: (https://countries-vvyr.onrender.com)
 
 ## **Challenges ⚔️**
 - **Firebase Authentication**: Implementing Firebase Authentication was a bit tricky as it required handling authentication states and ensuring secure session management.
