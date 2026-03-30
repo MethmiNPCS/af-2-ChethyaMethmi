@@ -55,13 +55,19 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center h-100">
             <li className="nav-item mx-2">
-              <NavLink to="/allcountries" className="nav-link px-3" activeClassName="active">
+              <NavLink
+                to="/allcountries"
+                className={({ isActive }) => `nav-link px-3${isActive ? ' active' : ''}`}
+              >
                 🌎 All Countries
               </NavLink>
             </li>
 
             <li className="nav-item mx-2">
-              <NavLink to="/favorites" className="nav-link px-3" activeClassName="active">
+              <NavLink
+                to="/favorites"
+                className={({ isActive }) => `nav-link px-3${isActive ? ' active' : ''}`}
+              >
                 ❤ Favorites
               </NavLink>
             </li>

@@ -6,20 +6,11 @@ import { useSearchParams } from 'react-router-dom';
 
 function AllCountries() {
   const [countries, setCountries] = useState([]); // State for storing countries data
+  const [errorMessage, setErrorMessage] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
   const selectedRegion = searchParams.get('region') || '';
   const language = searchParams.get('language') || '';
-
-  // Fetch all countries data on component mount
-  useEffect(() => {
-    fetch('https://restcountries.com/v3.1/all')  
-      .then((response) => response.json())  
-      .then((data) => {
-        setCountries(data);  
-      })
-      .catch((err) => console.error('Error fetching countries:', err));
-  }, []);  
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -72,34 +63,41 @@ function AllCountries() {
   };
 
   useEffect(() => {
-    let url = 'https://restcountries.com/v3.1/all';
+    const fields = 'cca3,name,capital,region,population,languages,flags';
+    const buildUrl = (path) => `https://restcountries.com/v3.1/${path}?fields=${fields}`;
+
+    let url = buildUrl('all');
 
     if (language && selectedRegion && searchQuery.trim() !== '') {
-      url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      url = buildUrl(`region/${selectedRegion}`);
     } else if (language && selectedRegion) {
-      url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      url = buildUrl(`region/${selectedRegion}`);
     } else if (language && searchQuery.trim() !== '') {
-      url = `https://restcountries.com/v3.1/name/${searchQuery}`;
+      url = buildUrl(`name/${searchQuery}`);
     } else if (language) {
-      url = `https://restcountries.com/v3.1/lang/${language}`;
+      url = buildUrl(`lang/${language}`);
     } else if (searchQuery.trim() !== '' && selectedRegion) {
-      url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      url = buildUrl(`region/${selectedRegion}`);
     } else if (searchQuery.trim() !== '') {
-      url = `https://restcountries.com/v3.1/name/${searchQuery}`;
+      url = buildUrl(`name/${searchQuery}`);
     } else if (selectedRegion) {
-      url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
+      url = buildUrl(`region/${selectedRegion}`);
     }
 
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.length > 0) {
-          setCountries(data);
-        } else {
-          setCountries([]);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load countries: ${response.status}`);
         }
+        return response.json();
       })
-      .catch(() => {
+      .then((data) => {
+        setErrorMessage('');
+        setCountries(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error('Error fetching countries:', err);
+        setErrorMessage('Failed to load countries. Please try again later.');
         setCountries([]);
       });
   }, [searchQuery, selectedRegion, language]);
@@ -116,6 +114,12 @@ function AllCountries() {
           handleRegionChange={handleRegionChange}
         />
       </div>
+
+      {errorMessage && countries.length === 0 && (
+        <div className="alert alert-warning mt-3" role="alert">
+          {errorMessage}
+        </div>
+      )}
 
       <div className="row g-4" style={{ paddingTop: '180px' }}>
         {countries.map((country) => (
