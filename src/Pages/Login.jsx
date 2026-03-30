@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import "../Styles/AuthPages.css";
 
 export default function Login() {
   const emailRef = useRef();
@@ -25,54 +26,49 @@ export default function Login() {
   }
 
   return (
-    <div
-      className="container d-flex flex-column justify-content-center align-items-center"
-      style={{ maxWidth: 400, minHeight: "80vh", marginTop: "5rem" }}
-    >
-      <div className="card shadow-lg p-4 w-100 rounded-4">
-        <h2 className="mb-4 text-center fw-bold">Log In</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-header">
+          <span className="auth-pill">Welcome back</span>
+          <h2>Log in to continue</h2>
+          <p>Explore countries, save favorites, and keep your travel list handy.</p>
+        </div>
 
         {error && <div className="alert alert-danger">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-floating auth-field">
             <input
               type="email"
               placeholder="Email"
               ref={emailRef}
-              className="form-control rounded-3"
+              className="form-control"
               id="floatingEmail"
               required
             />
             <label htmlFor="floatingEmail">Email address</label>
           </div>
 
-          <div className="form-floating mb-4">
+          <div className="form-floating auth-field">
             <input
               type="password"
               placeholder="Password"
               ref={passwordRef}
-              className="form-control rounded-3"
+              className="form-control"
               id="floatingPassword"
               required
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
 
-          <button
-            disabled={loading}
-            className="btn btn-primary w-100 py-2 fw-semibold fs-5 rounded-3"
-            type="submit"
-          >
+          <button disabled={loading} className="auth-button" type="submit">
             {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 
-        <div className="text-center mt-4">
-          Need an account?{" "}
-          <Link to="/signup" className="text-decoration-none fw-semibold">
-            Sign Up
-          </Link>
+        <div className="auth-footer">
+          <span>Need an account?</span>
+          <Link to="/signup">Sign Up</Link>
         </div>
       </div>
     </div>

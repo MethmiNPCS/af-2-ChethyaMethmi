@@ -1,60 +1,68 @@
 // src/Pages/Welcome.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import globe from '../assets/globe.png';
+import '../Styles/Welcome.css';
 
 function Welcome() {
   return (
-    <div
-      className="d-flex flex-column justify-content-center align-items-center vh-100 text-center"
-      style={{
-        background: 'linear-gradient(120deg,rgb(254, 254, 254) 0%,rgb(255, 251, 251) 100%)',
-        paddingTop: '60px',
-        paddingBottom: '60px',
-      }}
-    >
-      {/* Globe Image */}
-      <img
-        src={globe}
-        alt="Globe"
-        className="mb-4"
-        style={{ width: '300px', height: '250px' }}
-      />
-
-      {/* Main Heading */}
-      <h1 className="display-4 fw-bold text-dark mb-2">Explore the World</h1>
-
-      {/* Subtext */}
-      <p className="lead text-dark mb-4 px-3" style={{ maxWidth: '650px' }}>
-        Discover every country, dive into their cultures, and save your favorites in one place.
-      </p>
-
-      {/* Stats Cards */}
-      <div className="d-flex flex-wrap justify-content-center gap-4 mb-4">
-        <div className="card shadow-sm border-0" style={{ width: '180px' }}>
-          <div className="card-body">
-            <h5 className="card-title text-primary">195</h5>
-            <p className="card-text">Countries</p>
-          </div>
-        </div>
-        <div className="card shadow-sm border-0" style={{ width: '180px' }}>
-          <div className="card-body">
-            <h5 className="card-title text-success">6</h5>
-            <p className="card-text">Continents</p>
-          </div>
-        </div>
-        <div className="card shadow-sm border-0" style={{ width: '180px' }}>
-          <div className="card-body">
-            <h5 className="card-title text-warning">5</h5>
-            <p className="card-text">Regions</p>
-          </div>
-        </div>
+    <div className="welcome-page">
+      <div className="welcome-backdrop" aria-hidden="true">
+        <span className="welcome-grid" />
+        <span className="welcome-spot spot-one" />
+        <span className="welcome-spot spot-two" />
       </div>
 
-      {/* Login Button */}
-      <Link to="/login" className="btn btn-dark btn-lg">
-        Get Started
-      </Link>
+      <section className="welcome-hero">
+        <div className="welcome-left">
+          <span className="welcome-kicker">HelloCountries Atlas</span>
+          <h1 className="welcome-title">
+            Plan your next
+            <span>country hop.</span>
+          </h1>
+          <p className="welcome-subtitle">
+            Discover every country, dive into cultures, and save your favorites in one place.
+            Start with a region or search by name.
+          </p>
+
+          <div className="welcome-actions">
+            <Link to="/allcountries" className="welcome-primary">
+              Start Exploring
+            </Link>
+            <Link to="/login" className="welcome-secondary">
+              Sign In
+            </Link>
+          </div>
+
+          <div className="welcome-badges">
+            <span>195 Countries</span>
+            <span>6 Continents</span>
+            <span>5 Regions</span>
+          </div>
+        </div>
+
+        <div className="welcome-right">
+          <div className="welcome-feature-grid">
+            <div className="welcome-feature">
+              <span>Smart Filters</span>
+              <strong>Narrow by language or region.</strong>
+            </div>
+            <div className="welcome-feature">
+              <span>Details That Matter</span>
+              <strong>Flags, capitals, timezones, and more.</strong>
+            </div>
+            <div className="welcome-feature">
+              <span>Your Wishlist</span>
+              <strong>Save favorites and revisit anytime.</strong>
+            </div>
+          </div>
+
+          <div className="welcome-highlight">
+            <span>Featured Journey</span>
+            <strong>Build a wishlist of favorites</strong>
+            <p>Track countries you love and plan visits with ease.</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

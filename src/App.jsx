@@ -11,22 +11,26 @@ import Register from './Pages/Register';
 function App() {
   return (
     <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/allcountries" element={<AllCountries />} />
-        <Route path="/country/:code" element={<CountryDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
-        <Route
-        path="/favorites"
-        element={
-          <ProtectedRoute>
-            <Favorites />
-          </ProtectedRoute>
-        }
-        />
-        </Routes>
+      <div className="app-shell">
+        <NavBar />
+        <main className="app-content">
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/allcountries" element={<AllCountries />} />
+            <Route path="/country/:code" element={<CountryDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Register />} />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute>
+                  <Favorites />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }

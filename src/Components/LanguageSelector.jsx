@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Styles/FilterControls.css';
 
 function LanguageSelector({ selectedLanguage, handleLanguageChange }) {
   const languages = [
@@ -14,7 +15,7 @@ function LanguageSelector({ selectedLanguage, handleLanguageChange }) {
 
   return (
     <select
-      className="form-select"
+      className="form-select filter-control filter-select"
       data-testid="language-select"
       value={selectedLanguage}
       onChange={handleLanguageChange}

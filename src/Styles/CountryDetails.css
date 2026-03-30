@@ -1,105 +1,327 @@
-/* For the page container */
-.container {
-    max-width: 1200px;  /* Make the container width responsive */
-    padding: 2rem;
-    margin-top: 100px;
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+/* Country details redesign */
+.country-details-page {
+  --ink: #0f172a;
+  --muted: #5b6475;
+  --card: #ffffff;
+  --accent: #f97316;
+  --accent-deep: #ea580c;
+  --accent-soft: rgba(249, 115, 22, 0.12);
+  --shadow: 0 20px 50px rgba(15, 23, 42, 0.14);
+  font-family: 'Open Sans', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 96px 6vw 64px;
+  background:
+    radial-gradient(circle at top left, rgba(248, 250, 255, 0.9), transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(249, 115, 22, 0.18), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(14, 116, 144, 0.16), transparent 45%),
+    linear-gradient(130deg, #f5f7ff 0%, #fef6ed 50%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.country-details-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0);
+  opacity: 0.8;
+  animation: glowFloat 18s ease-in-out infinite;
+}
+
+.glow--one {
+  width: 320px;
+  height: 320px;
+  left: -80px;
+  top: 120px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.35), transparent 70%);
+}
+
+.glow--two {
+  width: 240px;
+  height: 240px;
+  right: 10%;
+  top: 40px;
+  background: radial-gradient(circle, rgba(14, 116, 144, 0.35), transparent 70%);
+  animation-delay: -6s;
+}
+
+.glow--three {
+  width: 280px;
+  height: 280px;
+  right: -120px;
+  bottom: 120px;
+  background: radial-gradient(circle, rgba(148, 163, 184, 0.35), transparent 70%);
+  animation-delay: -10s;
+}
+
+.country-details-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.country-details-hero__text {
+  animation: slideIn 0.6s ease-out;
+}
+
+.country-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: linear-gradient(120deg, rgba(249, 115, 22, 0.2), rgba(14, 116, 144, 0.18));
+  color: #b45309;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.country-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.4rem, 3vw, 3.4rem);
+  margin: 18px 0 8px;
+  background: linear-gradient(120deg, #0f172a, #ea580c 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.country-subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.country-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 55px rgba(15, 23, 42, 0.2);
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.stat-card strong {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.country-details-hero__media {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  justify-items: stretch;
+  position: relative;
+  align-content: start;
+  margin-top: 24px;
+}
+
+.media-card {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 24px;
+  width: 100%;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  animation: floatIn 0.8s ease-out;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.media-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(249, 115, 22, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.media-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 30px 65px rgba(15, 23, 42, 0.2);
+}
+
+.media-card:hover::after {
+  opacity: 1;
+}
+
+
+.media-card--tall {
+  width: 100%;
+  padding: 20px;
+}
+
+.media-card__image {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.media-card__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.country-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+  align-items: start;
+}
+
+.info-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  min-height: 100%;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 65px rgba(15, 23, 42, 0.2);
+}
+
+.info-card:hover::before {
+  opacity: 1;
+}
+
+.info-card--wide {
+  grid-column: span 2;
+}
+
+.info-card h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+.info-list {
+  display: grid;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.info-list span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.info-list strong {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
-  
-  /* Header Styles */
-  h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #333;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  h5 {
-    color: #777;
-    font-style: italic;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
   }
-  
-  /* Add a smooth transition for images */
-  img {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
-  
-  img:hover {
-    transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+@keyframes glowFloat {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  
-  /* Styling for Flag and Coat of Arms container */
-  .col-md-5 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  50% {
+    transform: translateY(-18px);
   }
-  
-  .col-md-5 h5 {
-    margin-top: 10px;
-    font-weight: 500;
-    color: #444;
+}
+
+@media (max-width: 900px) {
+  .country-details-hero {
+    grid-template-columns: 1fr;
   }
-  
-  /* Table Styles */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for table */
+
+  .country-details-grid {
+    grid-template-columns: 1fr;
   }
-  
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    font-size: 1rem;
-    border-bottom: 1px solid #ddd;
+
+  .info-card--wide {
+    grid-column: auto;
   }
-  
-  th {
-    font-weight: bold;
-    background-color: #f5f5f5;
+}
+
+@media (max-width: 600px) {
+  .country-details-page {
+    padding: 96px 6vw 48px;
   }
-  
-  td {
-    color: #555;
+
+  .country-quick-stats {
+    grid-template-columns: 1fr;
   }
-  
-  table tbody tr:hover {
-    background-color: #f9f9f9; /* Highlight row on hover */
-  }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 768px) {
-    .container {
-      padding: 1rem;
-    }
-  
-    h2 {
-      font-size: 2rem;
-    }
-  
-    .row {
-      flex-direction: column;
-    }
-  
-    .col-md-5, .col-md-7 {
-      text-align: center;
-    }
-  
-    .col-md-5 img {
-      max-height: 200px;
-    }
-  
-    .col-md-7 table {
-      font-size: 0.9rem;
-    }
-  }
+}
   
