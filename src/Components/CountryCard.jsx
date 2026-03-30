@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 // Import MUI icons only for heart
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { blue } from '@mui/material/colors';
 
 function CountryCard({ country }) {
   const { cca3, name, capital, region, population, languages, flags } = country;
